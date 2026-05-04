@@ -14,6 +14,7 @@ model_columns = joblib.load('model_columns.pkl')
 @app.route('/', methods=['GET', 'POST'])
 def home():
     prediction_text = ""
+    prob_yes = None  # Initialize to None for the GET request
     
     if request.method == 'POST':
         # 2. Capture data from the HTML Form
@@ -50,16 +51,20 @@ def home():
         print(f"Confidence: {probs[0]*100:.1f}% NO | {probs[1]*100:.1f}% YES")
         print("="*40 + "\n")
         
-        # 4. Make the final prediction
+        # 4. Make the final prediction and extract percentage
         pred = model_pipeline.predict(input_dummies)
         result = le.inverse_transform(pred)[0] 
         
+        # Grab the 'Yes' probability (index 1) and turn it into a clean percentage
+        prob_yes = round(probs[1] * 100, 2)
+        
         if result == 'yes':
-            prediction_text = "Result: This client is LIKELY to subscribe! "
+            prediction_text = "Result: This client is LIKELY to subscribe!"
         else:
-            prediction_text = "Result: This client is UNLIKELY to subscribe. "
+            prediction_text = "Result: This client is UNLIKELY to subscribe."
 
-    return render_template('index.html', prediction_text=prediction_text)
+    # Pass both the text and the probability to the template
+    return render_template('index.html', prediction_text=prediction_text, probability=prob_yes)
 
 if __name__ == '__main__':
     app.run(debug=True)

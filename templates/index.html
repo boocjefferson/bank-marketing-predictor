@@ -30,20 +30,19 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Job</label>
-                        <select name="job" class="form-select">
-                            <option value="admin.">Admin</option>
-                            <option value="blue-collar">Blue-collar</option>
-                            <option value="entrepreneur">Entrepreneur</option>
-                            <option value="housemaid">Housemaid</option>
-                            <option value="management">Management</option>
-                            <option value="retired">Retired</option>
-                            <option value="self-employed">Self-employed</option>
-                            <option value="services">Services</option>
-                            <option value="student">Student</option>
-                            <option value="technician">Technician</option>
-                            <option value="unemployed">Unemployed</option>
-                            <option value="unknown">Unknown</option>
-                            </select>
+                                <select name="job" class="form-select">
+                                    <option value="admin.">Admin</option>
+                                    <option value="blue-collar">Blue-collar</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="housemaid">Housemaid</option>
+                                    <option value="management">Management</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="self-employed">Self-employed</option>
+                                    <option value="services">Services</option>
+                                    <option value="student">Student</option>
+                                    <option value="technician">Technician</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="unknown">Unknown</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -108,7 +107,7 @@
 
                             <!-- Date/Previous Campaign -->
                             <div class="col-md-4">
-                                <<label class="form-label">Month</label>
+                                <label class="form-label">Month</label>
                                 <select name="month" class="form-select">
                                     <option value="jan">January</option>
                                     <option value="feb">February</option>
@@ -122,7 +121,6 @@
                                     <option value="oct">October</option>
                                     <option value="nov">November</option>
                                     <option value="dec">December</option>
-                                </select>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -159,6 +157,13 @@
 
                     <div class="result text-center">
                         {{ prediction_text }}
+                        
+                        {% if probability is defined and probability is not none %}
+                            <br>
+                            <span style="font-size: 1rem; font-weight: normal; color: #555;">
+                                Confidence Score: <strong style="color: #2c3e50;">{{ probability }}%</strong>
+                            </span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
